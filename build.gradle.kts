@@ -2,6 +2,7 @@ plugins {
 	java
 	id("org.springframework.boot") version "3.2.2"
 	id("io.spring.dependency-management") version "1.1.4"
+	id("jacoco")
 }
 
 group = "main-team.com"
@@ -29,6 +30,9 @@ dependencies {
 	annotationProcessor("org.projectlombok:lombok")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
+	testImplementation("org.junit.jupiter:junit-jupiter:5.9.0")
+	testImplementation("org.mockito:mockito-core:3.11.2")
+	testImplementation("org.jacoco:org.jacoco.core:0.8.7")
 }
 
 tasks.withType<Test> {

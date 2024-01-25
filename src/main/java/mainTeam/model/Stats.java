@@ -1,4 +1,4 @@
-package MainTeam.model;
+package mainTeam.model;
 
 public class Stats {
 

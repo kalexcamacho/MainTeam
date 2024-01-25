@@ -1,4 +1,4 @@
-package MainTeam.model;
+package mainTeam.model;
 
 import java.util.List;
 public class TrainingData {

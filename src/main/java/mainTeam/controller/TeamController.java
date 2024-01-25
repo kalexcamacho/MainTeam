@@ -1,9 +1,9 @@
-package MainTeam.controller;
+package mainTeam.controller;
 
-import MainTeam.model.Player;
-import MainTeam.model.TrainingData;
-import MainTeam.repository.PlayerRepository;
-import MainTeam.service.TrainingService;
+import mainTeam.model.Player;
+import mainTeam.model.TrainingData;
+import mainTeam.repository.PlayerRepository;
+import mainTeam.service.TrainingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

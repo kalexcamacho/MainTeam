@@ -1,8 +1,8 @@
-package MainTeam.service;
+package mainTeam.service;
 
-import MainTeam.model.Player;
-import MainTeam.model.TrainingData;
-import MainTeam.repository.PlayerRepository;
+import mainTeam.model.Player;
+import mainTeam.model.TrainingData;
+import mainTeam.repository.PlayerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
