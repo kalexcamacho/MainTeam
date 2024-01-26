@@ -27,12 +27,14 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	compileOnly("org.projectlombok:lombok")
 	runtimeOnly("com.h2database:h2")
-	annotationProcessor("org.projectlombok:lombok")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
 	testImplementation("org.junit.jupiter:junit-jupiter:5.9.0")
 	testImplementation("org.mockito:mockito-core:3.11.2")
 	testImplementation("org.jacoco:org.jacoco.core:0.8.7")
+	implementation("org.springdoc:springdoc-openapi-ui:1.7.0")
+	implementation("org.slf4j:slf4j-api:2.0.7")
+	implementation("ch.qos.logback:logback-classic:1.4.12")
 }
 
 tasks.withType<Test> {

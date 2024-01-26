@@ -3,12 +3,13 @@ package mainTeam.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import mainTeam.exceptions.InvalidTrainingDataException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class PlayerTest {
 
-    private Stats createStats(int power, int distance, int time, int passes) {
+    private Stats createStats(int power, int distance, int time, int passes) throws InvalidTrainingDataException {
         Stats stats = new Stats();
         stats.setPower(power);
         Speed speed = new Speed();
@@ -20,7 +21,7 @@ public class PlayerTest {
     }
 
     @Test
-    public void calculateTotalScoreTest() {
+    public void calculateTotalScoreTest() throws InvalidTrainingDataException {
         List<Stats> statsList = new ArrayList<>();
         statsList.add(createStats(300, 30, 5, 20));
 

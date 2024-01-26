@@ -1,5 +1,7 @@
 package mainTeam.model;
 
+import mainTeam.exceptions.InvalidTrainingDataException;
+
 public class Speed {
     private int distance;   //mts
     private int time;   //seg
@@ -19,10 +21,15 @@ public class Speed {
         return time;
     }
 
-    public void setTime(int time) {
+    public void setTime(int time) throws InvalidTrainingDataException {
         if (time <= 0) {
-            throw new IllegalArgumentException("Time must be greater than 0.");
+            throw new InvalidTrainingDataException("Time must be greater than 0.");
         }
+        this.time = time;
+    }
+
+    public Speed(int distance, int time) {
+        this.distance = distance;
         this.time = time;
     }
 
