@@ -11,8 +11,6 @@ public class PlayerScore {
         this.score = score;
     }
 
-    // Getters y setters
-
     public String getId() {
         return id;
     }
