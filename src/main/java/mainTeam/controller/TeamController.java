@@ -6,7 +6,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import mainTeam.exceptions.InvalidTrainingDataException;
-import mainTeam.model.Player;
 import mainTeam.model.TeamSelectionCriteria;
 import mainTeam.model.TrainingData;
 import mainTeam.repository.PlayerRepository;
@@ -19,21 +18,17 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/main-team")
 public class TeamController {
 
     private static final Logger logger = LoggerFactory.getLogger(TeamController.class);
     private final TrainingService trainingService;
-    private final PlayerRepository playerRepository;
     private final TeamSelectionService teamSelectionService;
 
     @Autowired
-    public TeamController(TrainingService trainingService, PlayerRepository playerRepository, TeamSelectionService teamSelectionService) {
+    public TeamController(TrainingService trainingService, TeamSelectionService teamSelectionService) {
         this.trainingService = trainingService;
-        this.playerRepository = playerRepository;
         this.teamSelectionService = teamSelectionService;
     }
 
@@ -43,13 +38,13 @@ public class TeamController {
             @ApiResponse(responseCode = "200", description = "Training data added successfully"),
             @ApiResponse(responseCode = "400", description = "Invalid training data provided")
     })
-    public ResponseEntity<Void> addTrainingData(@Valid @RequestBody TrainingData data) {
+    public ResponseEntity<?> addTrainingData(@Valid @RequestBody TrainingData data) {
         try {
             trainingService.addTrainingData(data);
             return ResponseEntity.ok().build();
         } catch (InvalidTrainingDataException e) {
             logger.error("Invalid training data provided", e);
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.badRequest().body(e.getMessage());
         } catch (Exception e) {
             logger.error("Error adding training data", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
@@ -73,6 +68,6 @@ public class TeamController {
         criteria.setPassesPercentage(passesPercentage);
         criteria.setTeamSize(teamSize);
 
-        return teamSelectionService.calculateStartingTeam(criteria);
+        return teamSelectionService.calculateMainTeam(criteria);
     }
 }

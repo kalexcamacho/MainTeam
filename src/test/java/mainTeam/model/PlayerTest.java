@@ -9,12 +9,10 @@ import org.junit.jupiter.api.Test;
 
 public class PlayerTest {
 
-    private Stats createStats(int power, int distance, int time, int passes) throws InvalidTrainingDataException {
+    private Stats createStats(String power, String distance, String time, String passes) throws InvalidTrainingDataException {
         Stats stats = new Stats();
         stats.setPower(power);
-        Speed speed = new Speed();
-        speed.setDistance(distance);
-        speed.setTime(time);
+        Speed speed = new Speed(distance, time); // Crear Speed con los argumentos directamente
         stats.setSpeed(speed);
         stats.setPasses(passes);
         return stats;
@@ -23,7 +21,7 @@ public class PlayerTest {
     @Test
     public void calculateTotalScoreTest() throws InvalidTrainingDataException {
         List<Stats> statsList = new ArrayList<>();
-        statsList.add(createStats(300, 30, 5, 20));
+        statsList.add(createStats("300", "30", "5", "20"));
 
         Player player = new Player();
         int totalScore = player.calculateTotalScore(statsList, 0.2f, 0.3f, 0.5f);

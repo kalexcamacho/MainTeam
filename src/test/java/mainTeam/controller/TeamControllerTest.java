@@ -31,7 +31,7 @@ public class TeamControllerTest {
     void addTrainingData_ValidData_ReturnsOk() {
         TrainingData validTrainingData = new TrainingData(); // crear datos válidos aquí
 
-        ResponseEntity<Void> response = teamController.addTrainingData(validTrainingData);
+        ResponseEntity<?> response = teamController.addTrainingData(validTrainingData);
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
     }
@@ -43,7 +43,7 @@ public class TeamControllerTest {
         doThrow(new InvalidTrainingDataException("Invalid training data"))
                 .when(trainingService).addTrainingData(any(TrainingData.class));
 
-        ResponseEntity<Void> response = teamController.addTrainingData(invalidTrainingData);
+        ResponseEntity<?> response = teamController.addTrainingData(invalidTrainingData);
 
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
     }
@@ -55,7 +55,7 @@ public class TeamControllerTest {
         doThrow(new RuntimeException("Simulated service error"))
                 .when(trainingService).addTrainingData(any(TrainingData.class));
 
-        ResponseEntity<Void> response = teamController.addTrainingData(validTrainingData);
+        ResponseEntity<?> response = teamController.addTrainingData(validTrainingData);
 
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
     }

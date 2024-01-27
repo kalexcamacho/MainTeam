@@ -8,18 +8,18 @@ import java.util.List;
 @Document
 public class Player {
     @Id
-    private String id;
+    private int id;
     private String name;
     private List<Stats> statsList;
 
     public Player() {
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -46,16 +46,22 @@ public class Player {
         final float defaultSpeedPercentage = 0.30f;
         final float defaultPassesPercentage = 0.50f;
 
-        powerPercentage = (powerPercentage > 0 && powerPercentage <= 1) ? powerPercentage : defaultPowerPercentage;
-        speedPercentage = (speedPercentage > 0 && speedPercentage <= 1) ? speedPercentage : defaultSpeedPercentage;
-        passesPercentage = (passesPercentage > 0 && passesPercentage <= 1) ? passesPercentage : defaultPassesPercentage;
+        float totalPercentage = powerPercentage + speedPercentage + passesPercentage;
 
-        for (Stats stats : statsList) {
-            float powerScore = stats.getPower() * powerPercentage;
-            float speedScore = stats.getSpeed().calculateSpeed() * speedPercentage; // Calcula el puntaje de velocidad directamente aquí
-            float passesScore = stats.getPasses() * passesPercentage;
+        if (totalPercentage != 1) {
+            powerPercentage = defaultPowerPercentage;
+            speedPercentage = defaultSpeedPercentage;
+            passesPercentage = defaultPassesPercentage;
+        }
 
-            totalScore += Math.round(powerScore + speedScore + passesScore);
+        if (statsList != null && !statsList.isEmpty()) {
+            for (Stats stats : statsList) {
+                float powerScore = Integer.parseInt(stats.getPower()) * powerPercentage;
+                float speedScore = stats.getSpeed().calculateSpeed() * speedPercentage;
+                float passesScore = Integer.parseInt(stats.getPasses()) * passesPercentage;
+
+                totalScore += Math.round(powerScore + speedScore + passesScore);
+            }
         }
 
         return totalScore;

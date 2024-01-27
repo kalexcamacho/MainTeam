@@ -4,7 +4,6 @@ import mainTeam.model.Player;
 import mainTeam.model.PlayerScore;
 import mainTeam.model.TeamSelectionCriteria;
 import mainTeam.repository.PlayerRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -13,14 +12,15 @@ import java.util.List;
 
 @Service
 public class TeamSelectionService {
+
+//    @Autowired
     private final PlayerRepository playerRepository;
 
-    @Autowired
     public TeamSelectionService(PlayerRepository playerRepository) {
         this.playerRepository = playerRepository;
     }
 
-    public ResponseEntity<?> calculateStartingTeam(TeamSelectionCriteria criteria) {
+    public ResponseEntity<?> calculateMainTeam(TeamSelectionCriteria criteria) {
         List<Player> players = playerRepository.findAll();
 
         List<Player> eligiblePlayers = players.stream()

@@ -1,21 +1,21 @@
 package mainTeam.model;
 
 public class PlayerScore {
-    private String id;
+    private int id;
     private String name;
     private int score;
 
-    public PlayerScore(String id, String name, int score) {
+    public PlayerScore(int id, String name, int score) {
         this.id = id;
         this.name = name;
         this.score = score;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

@@ -2,18 +2,18 @@ package mainTeam.model;
 
 public class Stats {
 
-    private int power; //Newtons
+    private String power; //Newtons
     private Speed speed;
-    private int passes;
+    private String passes;
 
     public Stats() {
     }
 
-    public int getPower() {
+    public String getPower() {
         return power;
     }
 
-    public void setPower(int power) {
+    public void setPower(String power) {
         this.power = power;
     }
 
@@ -25,11 +25,11 @@ public class Stats {
         this.speed = speed;
     }
 
-    public int getPasses() {
+    public String getPasses() {
         return passes;
     }
 
-    public void setPasses(int passes) {
+    public void setPasses(String passes) {
         this.passes = passes;
     }
 }
