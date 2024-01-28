@@ -1,10 +1,8 @@
-package mainTeam.controller;
+package MainTeam.controller;
 
-import mainTeam.controller.TeamController;
-import mainTeam.exceptions.InvalidTrainingDataException;
-import mainTeam.model.TrainingData;
-import mainTeam.service.TrainingService;
-import org.junit.jupiter.api.BeforeEach;
+import MainTeam.exceptions.InvalidTrainingDataException;
+import MainTeam.model.TrainingData;
+import MainTeam.service.TrainingService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -16,7 +14,6 @@ import org.springframework.http.ResponseEntity;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class TeamControllerTest {
@@ -29,7 +26,7 @@ public class TeamControllerTest {
 
     @Test
     void addTrainingData_ValidData_ReturnsOk() {
-        TrainingData validTrainingData = new TrainingData(); // crear datos válidos aquí
+        TrainingData validTrainingData = new TrainingData();
 
         ResponseEntity<?> response = teamController.addTrainingData(validTrainingData);
 

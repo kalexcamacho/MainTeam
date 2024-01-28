@@ -1,4 +1,4 @@
-package mainTeam.model;
+package MainTeam.model;
 
 import java.util.ArrayList;
 import java.util.List;

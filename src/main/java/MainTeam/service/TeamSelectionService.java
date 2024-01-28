@@ -1,9 +1,9 @@
-package mainTeam.service;
+package MainTeam.service;
 
-import mainTeam.model.Player;
-import mainTeam.model.PlayerScore;
-import mainTeam.model.TeamSelectionCriteria;
-import mainTeam.repository.PlayerRepository;
+import MainTeam.model.Player;
+import MainTeam.model.PlayerScore;
+import MainTeam.model.TeamSelectionCriteria;
+import MainTeam.repository.PlayerRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +13,6 @@ import java.util.List;
 @Service
 public class TeamSelectionService {
 
-//    @Autowired
     private final PlayerRepository playerRepository;
 
     public TeamSelectionService(PlayerRepository playerRepository) {
@@ -23,19 +22,24 @@ public class TeamSelectionService {
     public ResponseEntity<?> calculateMainTeam(TeamSelectionCriteria criteria) {
         List<Player> players = playerRepository.findAll();
 
+        float powerPercentage = criteria.getPowerPercentage() != null ? criteria.getPowerPercentage() / 100.0f : 0.2f;
+        float speedPercentage = criteria.getSpeedPercentage() != null ? criteria.getSpeedPercentage() / 100.0f : 0.3f;
+        float passesPercentage = criteria.getPassesPercentage() != null ? criteria.getPassesPercentage() / 100.0f : 0.5f;
+        int teamSize = criteria.getTeamSize() != null ? criteria.getTeamSize() : 7;
+
         List<Player> eligiblePlayers = players.stream()
-                .filter(player -> player.getStatsList() != null && player.getStatsList().size() >= 3)
+                .filter(player -> player.getStats() != null && player.getStats().size() >= 3)
                 .toList();
 
-        if (eligiblePlayers.size() < criteria.getTeamSize()) {
+        if (eligiblePlayers.size() < teamSize) {
             return ResponseEntity.badRequest().body("There is not enough information.");
         }
 
         List<PlayerScore> playerScores = eligiblePlayers.stream()
                 .map(player -> new PlayerScore(player.getId(), player.getName(),
-                        player.calculateTotalScore(player.getStatsList(), criteria.getPowerPercentage(), criteria.getSpeedPercentage(), criteria.getPassesPercentage())))
+                        player.calculateTotalScore(player.getStats(), powerPercentage, speedPercentage, passesPercentage)))
                 .sorted(Comparator.comparingInt(PlayerScore::getScore).reversed())
-                .limit(criteria.getTeamSize())
+                .limit(teamSize)
                 .toList();
 
         return ResponseEntity.ok(playerScores);

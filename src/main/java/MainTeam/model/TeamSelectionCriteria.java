@@ -1,10 +1,13 @@
-package mainTeam.model;
+package MainTeam.model;
 
 public class TeamSelectionCriteria {
     private Float powerPercentage;
     private Float speedPercentage;
     private Float passesPercentage;
     private Integer teamSize;
+
+    public TeamSelectionCriteria() {
+    }
 
     public Float getPowerPercentage() {
         return powerPercentage;

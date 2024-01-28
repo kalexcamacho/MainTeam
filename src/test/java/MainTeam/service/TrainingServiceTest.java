@@ -1,11 +1,11 @@
-package mainTeam.service;
+package MainTeam.service;
 
-import mainTeam.exceptions.InvalidTrainingDataException;
-import mainTeam.model.Player;
-import mainTeam.model.Speed;
-import mainTeam.model.Stats;
-import mainTeam.model.TrainingData;
-import mainTeam.repository.PlayerRepository;
+import MainTeam.exceptions.InvalidTrainingDataException;
+import MainTeam.model.Player;
+import MainTeam.model.Speed;
+import MainTeam.model.Stats;
+import MainTeam.model.TrainingData;
+import MainTeam.repository.PlayerRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
@@ -14,7 +14,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -44,11 +43,11 @@ public class TrainingServiceTest {
         Player demoPlayer = new Player();
         demoPlayer.setId(1);
         demoPlayer.setName("Existing Player");
-        demoPlayer.setStatsList(new ArrayList<>());
-        demoPlayer.getStatsList().add(stats1);
+        demoPlayer.setStats(new ArrayList<>());
+        demoPlayer.getStats().add(stats1);
 
         TrainingData trainingData = new TrainingData();
-        List<Player> players = new ArrayList<>();
+        ArrayList<Player> players = new ArrayList<>();
         players.add(demoPlayer);
         trainingData.setPlayers(players);
 
@@ -58,7 +57,7 @@ public class TrainingServiceTest {
 
         verify(playerRepository, times(1)).save(demoPlayer);
 
-        assertEquals(1, demoPlayer.getStatsList().size());
+        assertEquals(1, demoPlayer.getStats().size());
     }
 
     @Test
@@ -66,10 +65,13 @@ public class TrainingServiceTest {
         Player nonExistingPlayer = new Player();
         nonExistingPlayer.setId(1);
         nonExistingPlayer.setName("Non Existing Player");
-        nonExistingPlayer.setStatsList(new ArrayList<>());
+        nonExistingPlayer.setStats(new ArrayList<>());
+
+        ArrayList<Player> fakeTrainingData = new ArrayList<>();
+        fakeTrainingData.add(nonExistingPlayer);
 
         TrainingData trainingData = new TrainingData();
-        trainingData.setPlayers(List.of(nonExistingPlayer));
+        trainingData.setPlayers(fakeTrainingData);
 
         when(playerRepository.findById("1")).thenReturn(Optional.empty());
 
@@ -97,8 +99,8 @@ public class TrainingServiceTest {
         Player demoPlayer = new Player();
         demoPlayer.setId(1);
         demoPlayer.setName("Existing Player");
-        demoPlayer.setStatsList(new ArrayList<>());
-        demoPlayer.getStatsList().add(stats1);
+        demoPlayer.setStats(new ArrayList<>());
+        demoPlayer.getStats().add(stats1);
 
         Speed speed2 = new Speed("80", "7");
 
@@ -110,11 +112,14 @@ public class TrainingServiceTest {
         Player demoPlayerWithNewStats = new Player();
         demoPlayerWithNewStats.setId(1);
         demoPlayerWithNewStats.setName("Existing Player");
-        demoPlayerWithNewStats.setStatsList(new ArrayList<>());
-        demoPlayerWithNewStats.getStatsList().add(stats2);
+        demoPlayerWithNewStats.setStats(new ArrayList<>());
+        demoPlayerWithNewStats.getStats().add(stats2);
+
+        ArrayList<Player> fakeTrainingData = new ArrayList<>();
+        fakeTrainingData.add(demoPlayerWithNewStats);
 
         TrainingData trainingData = new TrainingData();
-        trainingData.setPlayers(List.of(demoPlayerWithNewStats));
+        trainingData.setPlayers(fakeTrainingData);
 
         when(playerRepository.findById("1")).thenReturn(Optional.of(demoPlayer));
 
@@ -122,7 +127,7 @@ public class TrainingServiceTest {
 
         verify(playerRepository, times(1)).save(demoPlayer);
 
-        assertEquals(2, demoPlayer.getStatsList().size());
-        assertTrue(demoPlayer.getStatsList().contains(stats2));
+        assertEquals(2, demoPlayer.getStats().size());
+        assertTrue(demoPlayer.getStats().contains(stats2));
     }
 }

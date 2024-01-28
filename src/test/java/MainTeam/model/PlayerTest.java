@@ -1,9 +1,9 @@
-package mainTeam.model;
+package MainTeam.model;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import mainTeam.exceptions.InvalidTrainingDataException;
+import MainTeam.exceptions.InvalidTrainingDataException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -20,7 +20,7 @@ public class PlayerTest {
 
     @Test
     public void calculateTotalScoreTest() throws InvalidTrainingDataException {
-        List<Stats> statsList = new ArrayList<>();
+        ArrayList<Stats> statsList = new ArrayList<>();
         statsList.add(createStats("300", "30", "5", "20"));
 
         Player player = new Player();

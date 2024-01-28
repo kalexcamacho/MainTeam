@@ -1,6 +1,6 @@
-package mainTeam.repository;
+package MainTeam.repository;
 
-import mainTeam.model.Player;
+import MainTeam.model.Player;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 

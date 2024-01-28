@@ -1,4 +1,4 @@
-package mainTeam.exceptions;
+package MainTeam.exceptions;
 
 public class InvalidTrainingDataException extends Exception {
 

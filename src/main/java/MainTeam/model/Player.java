@@ -1,8 +1,9 @@
-package mainTeam.model;
+package MainTeam.model;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Document
@@ -10,7 +11,7 @@ public class Player {
     @Id
     private int id;
     private String name;
-    private List<Stats> statsList;
+    private List<Stats> stats;
 
     public Player() {
     }
@@ -31,15 +32,15 @@ public class Player {
         this.name = name;
     }
 
-    public List<Stats> getStatsList() {
-        return statsList;
+    public List<Stats> getStats() {
+        return stats;
     }
 
-    public void setStatsList(List<Stats> statsList) {
-        this.statsList = statsList;
+    public void setStats(List<Stats> statsList) {
+        this.stats = statsList;
     }
 
-    public int calculateTotalScore(List<Stats> statsList, float powerPercentage, float speedPercentage, float passesPercentage) {
+    public int calculateTotalScore(List<Stats> stats, float powerPercentage, float speedPercentage, float passesPercentage) {
         int totalScore = 0;
 
         final float defaultPowerPercentage = 0.20f;
@@ -54,11 +55,11 @@ public class Player {
             passesPercentage = defaultPassesPercentage;
         }
 
-        if (statsList != null && !statsList.isEmpty()) {
-            for (Stats stats : statsList) {
-                float powerScore = Integer.parseInt(stats.getPower()) * powerPercentage;
-                float speedScore = stats.getSpeed().calculateSpeed() * speedPercentage;
-                float passesScore = Integer.parseInt(stats.getPasses()) * passesPercentage;
+        if (stats != null && !stats.isEmpty()) {
+            for (Stats stat : stats) {
+                float powerScore = Integer.parseInt(stat.getPower()) * powerPercentage;
+                float speedScore = stat.getSpeed().calculateSpeed() * speedPercentage;
+                float passesScore = Integer.parseInt(stat.getPasses()) * passesPercentage;
 
                 totalScore += Math.round(powerScore + speedScore + passesScore);
             }

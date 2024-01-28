@@ -1,16 +1,15 @@
-package mainTeam.controller;
+package MainTeam.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import jakarta.validation.Valid;
-import mainTeam.exceptions.InvalidTrainingDataException;
-import mainTeam.model.TeamSelectionCriteria;
-import mainTeam.model.TrainingData;
-import mainTeam.repository.PlayerRepository;
-import mainTeam.service.TeamSelectionService;
-import mainTeam.service.TrainingService;
+import MainTeam.exceptions.InvalidTrainingDataException;
+import MainTeam.model.TeamSelectionCriteria;
+import MainTeam.model.TrainingData;
+import MainTeam.service.TeamSelectionService;
+import MainTeam.service.TrainingService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,10 +37,13 @@ public class TeamController {
             @ApiResponse(responseCode = "200", description = "Training data added successfully"),
             @ApiResponse(responseCode = "400", description = "Invalid training data provided")
     })
-    public ResponseEntity<?> addTrainingData(@Valid @RequestBody TrainingData data) {
+    public ResponseEntity<?> addTrainingData(@RequestBody String data) {
         try {
-            trainingService.addTrainingData(data);
-            return ResponseEntity.ok().build();
+            ObjectMapper om = new ObjectMapper();
+            TrainingData auxData = om.readValue(data, TrainingData.class);
+            trainingService.addTrainingData(auxData);
+        return ResponseEntity.ok().build();
+
         } catch (InvalidTrainingDataException e) {
             logger.error("Invalid training data provided", e);
             return ResponseEntity.badRequest().body(e.getMessage());

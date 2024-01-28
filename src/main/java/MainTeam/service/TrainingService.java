@@ -1,18 +1,18 @@
-package mainTeam.service;
+package MainTeam.service;
 
-import mainTeam.exceptions.InvalidTrainingDataException;
-import mainTeam.model.Player;
-import mainTeam.model.Stats;
-import mainTeam.model.TrainingData;
-import mainTeam.repository.PlayerRepository;
+import MainTeam.exceptions.InvalidTrainingDataException;
+import MainTeam.model.Player;
+import MainTeam.model.Stats;
+import MainTeam.model.TrainingData;
+import MainTeam.repository.PlayerRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class TrainingService {
 
-//    @Autowired
     private final PlayerRepository playerRepository;
 
     public TrainingService(PlayerRepository playerRepository) {
@@ -21,16 +21,17 @@ public class TrainingService {
 
     public void addTrainingData (TrainingData trainingData) throws InvalidTrainingDataException {
         for (Player playerData : trainingData.getPlayers()) {
-            Player player = playerRepository.findById( String.valueOf(playerData.getId())).orElse(null);
+            Player player = playerRepository.findById(String.valueOf(playerData.getId())).orElse(null);
 
             if (player == null) {
                 player = new Player();
                 player.setId(playerData.getId());
                 player.setName(playerData.getName());
+                player.setStats(new ArrayList<>());
             }
 
-            List<Stats> existingStats = player.getStatsList();
-            List<Stats> newStats = playerData.getStatsList();
+            List<Stats> existingStats = player.getStats();
+            List<Stats> newStats = playerData.getStats();
 
             for (Stats stats : newStats) {
                 if (!existingStats.contains(stats)) {
@@ -40,7 +41,6 @@ public class TrainingService {
                     existingStats.add(stats);
                 }
             }
-            player.setStatsList(existingStats);
 
             playerRepository.save(player);
         }

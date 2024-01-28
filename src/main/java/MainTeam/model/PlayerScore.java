@@ -1,4 +1,4 @@
-package mainTeam.model;
+package MainTeam.model;
 
 public class PlayerScore {
     private int id;

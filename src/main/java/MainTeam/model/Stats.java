@@ -1,8 +1,8 @@
-package mainTeam.model;
+package MainTeam.model;
 
 public class Stats {
 
-    private String power; //Newtons
+    private String power; //ANewtons
     private Speed speed;
     private String passes;
 

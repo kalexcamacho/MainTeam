@@ -1,6 +1,6 @@
-package mainTeam.model;
+package MainTeam.model;
 
-import mainTeam.exceptions.InvalidTrainingDataException;
+import MainTeam.exceptions.InvalidTrainingDataException;
 
 /**
  * Representa la velocidad calculada en base a la distancia y el tiempo.
@@ -8,6 +8,9 @@ import mainTeam.exceptions.InvalidTrainingDataException;
 public class Speed {
     private String distance;   // mts
     private String time;       // seg
+
+    public Speed() {
+    }
 
     /**
      * Constructor para inicializar una instancia de Speed.
